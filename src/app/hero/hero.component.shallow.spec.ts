@@ -20,8 +20,16 @@ describe('Hero Component (shallow)', () => {
     })
 
     it('should have the hero name inside an anchor tag', () => {
-        this.fixture.componentInstance.hero = { id:1, name: 'regular guy', strength: 500 };
+        this.fixture.componentInstance.hero = { id: 1, name: 'regular guy', strength: 500 };
         this.fixture.detectChanges();
+
         expect(this.fixture.debugElement.query(By.css('a')).nativeElement.textContent).toContain('regular guy');
+    })
+
+    it('should have the correct id in the template', () => {
+        this.fixture.componentInstance.hero = { id: 1, name: 'regular guy', strength: 500 };
+        this.fixture.detectChanges();
+
+        expect(this.fixture.debugElement.query(By.css('span')).nativeElement.textContent).toEqual(this.fixture.componentInstance.hero.id.toString());
     })
 })
