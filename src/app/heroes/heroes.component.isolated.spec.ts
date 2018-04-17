@@ -23,10 +23,12 @@ describe('HerosComponent Isolated', () => {
         it('should delete selected hero from heros list', () => {
             mockHeroService.deleteHero.and.returnValue(of(true))
             component.heroes = heroes;
+            const hero = heroes[0]
 
-            component.delete(heroes[0]);
+            component.delete(hero);
 
-            expect(component.heroes.length).toEqual(heroes.length - 1);
+            expect(component.heroes.indexOf(hero)).toEqual(-1);
+            expect(mockHeroService.deleteHero).toHaveBeenCalled();
         })
     })
 })
