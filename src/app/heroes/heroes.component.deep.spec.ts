@@ -46,21 +46,18 @@ describe('Heroes Component (deep)', () => {
 
     })
 
-    it(`should call heroService.deleteHero when the HeroComponent
-        when the heroComponent's delete button is clicked`, () => {
+    beforeEach(() => {
         mockHeroService.getHeroes.and.returnValue(of(heroes));
         this.fixture.detectChanges();
+    })
 
+    it(`should call heroService.deleteHero when the HeroComponent
+        when the heroComponent's delete button is clicked`, () => {
         spyOn(this.fixture.componentInstance, 'delete');
         let heroComponents = this.fixture.debugElement
                              .queryAll(By.directive(HeroComponent));
 
-        // alternate, trigger click event
-        // heroComponents[0].query(By.css('button'))
-        //     .triggerEventHandler('click', { stopPropagation: () => {} });
-
-        // manually emit the event
-        (<HeroComponent>heroComponents[0].componentInstance).delete.emit(undefined);
+        heroComponents[0].triggerEventHandler('delete', null);
 
         expect(this.fixture.componentInstance.delete).toHaveBeenCalledWith(heroes[0]);
     })
